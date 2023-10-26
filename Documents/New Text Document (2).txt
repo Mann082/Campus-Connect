@@ -1,0 +1,8 @@
+1) MINOR PROJECT RECOMMENDATION SYSTEM    	 XXXXXXX
+2) Digitl health analyser                  	 ✅✅✅
+3) SYSTEM FOR DUBBING LANGUAGE IN A MOVIE  	 ✅✅✅
+4) AR ZOO				   	 XXXXXXX
+5) BUS Tracking System                    	 ✅✅✅
+6) College Assessment App(Quiz with no cheats)   ✅✅✅
+7) Medical Booking Appointment System 		 ✅✅✅
+8) Product Recommmendation system   		 ✅✅✅

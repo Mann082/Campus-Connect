@@ -1,0 +1,22 @@
+: problem explaination part
+Problem Statement : isme sabse pehle ek question audience se ki kis kiski bus roz chut jati hai
+Introduction  : phir introduction to our solution i.e. a cross platform comaptible app for tracking bus, getting routes, etc
+Survey of Existing Systems : surveying of existing systm wala part chota rakha hai vo table hi lagke explain kar denge
+Project Objectives : project objective me points
+Requirement Analysis : requirement analysis me kya kya functional aur non functional req hai isko analyse karna aur uske tarike
+Solution Proposed : phir solution proposed me wapis yehi chize
+Features : feature duniya bhar ke
+System architecture : system architeture me components
+User Interface : ui ka photu
+Testing Plan : testing ka plan through feedback and unit testing
+The Outcome  Discussion : outcome and conclusion
+
+
+
+
+
+
+
+
+
+
