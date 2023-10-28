@@ -41,7 +41,7 @@ class driverScreen extends StatelessWidget {
                   minimumSize: Size(150, 40)),
               onPressed: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => LoginScreen(),
+                  builder: (context) => authScreen(),
                 ));
               },
             ),
@@ -53,29 +53,25 @@ class driverScreen extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              Container(height: 200,
-              width: MediaQuery.of(context).size.width *0.9,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),color: Colors.white),
-              child: Column(
-                children: [
-                SizedBox(
-                  height: 20),
-                DropdownMenu(
-                  width: 350,
-                  hintText: "select Bus",
-                  initialSelection: "select bus",
-                  menuStyle: const MenuStyle(
-                    backgroundColor:
-                       MaterialStatePropertyAll(Colors.white),
-                    shadowColor: MaterialStatePropertyAll(Colors.white)
-                ),
-                onSelected: (value) {
-
-                },
-                dropdownMenuEntries:
-                )
-              ]),
+              Container(
+                height: 200,
+                width: MediaQuery.of(context).size.width * 0.9,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white),
+                child: Column(children: [
+                  SizedBox(height: 20),
+                  DropdownMenu(
+                      width: 350,
+                      hintText: "select Bus",
+                      initialSelection: "select bus",
+                      menuStyle: const MenuStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.white),
+                          shadowColor: MaterialStatePropertyAll(Colors.white)),
+                      onSelected: (value) {},
+                      dropdownMenuEntries: [])
+                ]),
               ),
               ElevatedButton(
                 onPressed: () {},
