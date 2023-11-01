@@ -3,11 +3,49 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:campus_connect/screen/login.dart';
 
-class driverScreen extends StatelessWidget {
-  const driverScreen({super.key});
+class driverHome extends StatefulWidget {
+  const driverHome({super.key});
+  static const routeName = "/driverHome";
 
   @override
+  State<driverHome> createState() => _driverHomeState();
+}
+
+class _driverHomeState extends State<driverHome> {
+  @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    var selectedBus = "Select Bus";
+    var _buses = [
+      "Bus 1",
+      "Bus 2",
+      "Bus 3",
+      "Bus 4",
+      "Bus 5",
+      "Bus 6",
+      "Bus 7",
+      "Bus 1",
+      "Bus 2",
+      "Bus 3",
+      "Bus 4",
+      "Bus 5",
+      "Bus 6",
+      "Bus 7",
+      "Bus 1",
+      "Bus 2",
+      "Bus 3",
+      "Bus 4",
+      "Bus 5",
+      "Bus 6",
+      "Bus 7",
+      "Bus 1",
+      "Bus 2",
+      "Bus 3",
+      "Bus 4",
+      "Bus 5",
+      "Bus 6",
+      "Bus 7"
+    ];
     return Scaffold(
       appBar: AppBar(
         titleTextStyle: TextStyle(
@@ -61,16 +99,79 @@ class driverScreen extends StatelessWidget {
                     color: Colors.white),
                 child: Column(children: [
                   SizedBox(height: 20),
-                  DropdownMenu(
-                      width: 350,
-                      hintText: "select Bus",
-                      initialSelection: "select bus",
-                      menuStyle: const MenuStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.white),
-                          shadowColor: MaterialStatePropertyAll(Colors.white)),
-                      onSelected: (value) {},
-                      dropdownMenuEntries: [])
+                  Center(
+                    child: Card(
+                      elevation: 7,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(33)),
+                      child: Container(
+                        height: size.height * 0.3,
+                        width: MediaQuery.of(context).size.width * 0.95,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Color.fromARGB(255, 11, 223, 156)),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: size.height * 0.03,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white),
+                              child: DropdownMenu(
+                                  inputDecorationTheme: InputDecorationTheme(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          borderSide: BorderSide(
+                                              width: 10, color: Colors.black))),
+                                  width: size.width * 0.85,
+                                  hintText: "Select Bus",
+                                  leadingIcon: Icon(CupertinoIcons.bus),
+                                  initialSelection: "Please Select",
+                                  menuStyle: MenuStyle(
+                                      backgroundColor: MaterialStatePropertyAll(
+                                          Colors.white),
+                                      shadowColor: MaterialStatePropertyAll(
+                                          Colors.white),
+                                      fixedSize: MaterialStatePropertyAll(Size(
+                                          size.width * 0.5, size.height * 0.5)),
+                                      shape: MaterialStatePropertyAll(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              side: BorderSide(
+                                                  color: Colors.grey,
+                                                  width: 2)))),
+                                  onSelected: (String? value) {
+                                    setState(() {
+                                      // print("presssed");
+                                      // selectedContact = value!;
+                                      // contacts = Provider.of<Groups>(context, listen: false)
+                                      //     .returnByName(value.toString());
+                                      selectedBus = value!;
+                                      print(value);
+                                    });
+                                  },
+                                  // width: double.maxFinite,
+                                  dropdownMenuEntries: _buses
+                                      .map((e) => DropdownMenuEntry(
+                                          value: e,
+                                          label: e,
+                                          leadingIcon: Icon(CupertinoIcons.bus),
+                                          style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.white))))
+                                      .toList()),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text('Selected Bus : $selectedBus'),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ]),
               ),
               ElevatedButton(

@@ -1,5 +1,6 @@
 import 'package:campus_connect/screen/Notification_Screen.dart';
 import 'package:campus_connect/screen/authscreen.dart';
+import 'package:campus_connect/screen/driver.dart';
 import 'package:campus_connect/screen/homepage.dart';
 import 'package:campus_connect/screen/mainmapscreen.dart';
 import 'package:flutter/material.dart';
@@ -24,9 +25,10 @@ class MyApp extends StatelessWidget {
           authScreen.routeName: (context) => authScreen(),
           HomePage.routeName: (context) => HomePage(),
           NotificationScreen.routeName: (context) => NotificationScreen(),
-          mainMapScreen.routeName: (context) => mainMapScreen()
+          mainMapScreen.routeName: (context) => mainMapScreen(),
+          driverHome.routeName: (context) => driverHome()
         },
-        initialRoute: authScreen.routeName);
+        initialRoute: driverHome.routeName);
   }
 }
 
