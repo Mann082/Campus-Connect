@@ -1,9 +1,14 @@
+import 'package:campus_connect/providers/auth.dart';
+import 'package:campus_connect/providers/bus_data.dart';
 import 'package:campus_connect/screen/Notification_Screen.dart';
 import 'package:campus_connect/screen/authscreen.dart';
 import 'package:campus_connect/screen/driver.dart';
 import 'package:campus_connect/screen/homepage.dart';
 import 'package:campus_connect/screen/mainmapscreen.dart';
+import 'package:campus_connect/screen/signup.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,22 +18,36 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Campus Connect',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: Color.fromARGB(255, 67, 205, 154)),
-          primaryColor: Colors.white,
-          useMaterial3: true,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => Auth(),
         ),
-        routes: {
-          authScreen.routeName: (context) => authScreen(),
-          HomePage.routeName: (context) => HomePage(),
-          NotificationScreen.routeName: (context) => NotificationScreen(),
-          mainMapScreen.routeName: (context) => mainMapScreen(),
-          driverHome.routeName: (context) => driverHome()
-        },
-        initialRoute: driverHome.routeName);
+        ChangeNotifierProvider(
+          create: (context) => Buses(),
+        )
+      ],
+      child: MaterialApp(
+          title: 'Campus Connect',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+                seedColor: Color.fromARGB(255, 67, 205, 154)),
+            primaryColor: Colors.white,
+            useMaterial3: true,
+            textTheme: GoogleFonts.poppinsTextTheme(
+              Theme.of(context).textTheme,
+            ),
+          ),
+          routes: {
+            authScreen.routeName: (context) => authScreen(),
+            HomePage.routeName: (context) => HomePage(),
+            NotificationScreen.routeName: (context) => NotificationScreen(),
+            mainMapScreen.routeName: (context) => mainMapScreen(),
+            driverHome.routeName: (context) => driverHome(),
+            SignUp.routeName: (context) => SignUp()
+          },
+          initialRoute: authScreen.routeName),
+    );
   }
 }
 
