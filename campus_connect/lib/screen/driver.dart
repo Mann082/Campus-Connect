@@ -1,4 +1,5 @@
 import 'package:campus_connect/providers/bus_data.dart';
+import 'package:campus_connect/screen/drivercontrols.dart';
 import 'package:campus_connect/widgets/buttom.dart';
 import 'package:campus_connect/widgets/mainDrawer.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,7 +33,9 @@ class _driverHomeState extends State<driverHome> {
           textAlign: TextAlign.center,
         ),
       ),
-      drawer: mainDrawer(),
+      drawer: mainDrawer(
+        title: "Driver",
+      ),
       body: FutureBuilder(
         future: _fetchAndSetBus(),
         builder: (context, snapshot) => (snapshot.connectionState ==
@@ -103,7 +106,10 @@ class _driverHomeState extends State<driverHome> {
                       height: size.height * 0.1,
                     ),
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed(driverControlsScreen.routeName);
+                        },
                         child: const Text(
                           'Confirm',
                           style: TextStyle(fontWeight: FontWeight.bold),

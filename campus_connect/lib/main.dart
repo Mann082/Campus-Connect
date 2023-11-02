@@ -3,6 +3,7 @@ import 'package:campus_connect/providers/bus_data.dart';
 import 'package:campus_connect/screen/Notification_Screen.dart';
 import 'package:campus_connect/screen/authscreen.dart';
 import 'package:campus_connect/screen/driver.dart';
+import 'package:campus_connect/screen/drivercontrols.dart';
 import 'package:campus_connect/screen/homepage.dart';
 import 'package:campus_connect/screen/mainmapscreen.dart';
 import 'package:campus_connect/screen/selectuser.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
           title: 'Campus Connect',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
-                seedColor: Color.fromARGB(255, 67, 205, 154)),
+                seedColor: const Color.fromARGB(255, 67, 205, 154)),
             primaryColor: Colors.white,
             useMaterial3: true,
             textTheme: GoogleFonts.poppinsTextTheme(
@@ -40,13 +41,16 @@ class MyApp extends StatelessWidget {
             ),
           ),
           routes: {
-            selectUserScreen.routeName: (context) => selectUserScreen(),
-            authScreen.routeName: (context) => authScreen(),
-            HomePage.routeName: (context) => HomePage(),
-            NotificationScreen.routeName: (context) => NotificationScreen(),
-            mainMapScreen.routeName: (context) => mainMapScreen(),
-            driverHome.routeName: (context) => driverHome(),
-            SignUp.routeName: (context) => SignUp()
+            selectUserScreen.routeName: (context) => const selectUserScreen(),
+            authScreen.routeName: (context) => const authScreen(),
+            HomePage.routeName: (context) => const HomePage(),
+            NotificationScreen.routeName: (context) =>
+                const NotificationScreen(),
+            mainMapScreen.routeName: (context) => const mainMapScreen(),
+            driverHome.routeName: (context) => const driverHome(),
+            SignUp.routeName: (context) => const SignUp(),
+            driverControlsScreen.routeName: (context) =>
+                const driverControlsScreen()
           },
           initialRoute: selectUserScreen.routeName),
     );

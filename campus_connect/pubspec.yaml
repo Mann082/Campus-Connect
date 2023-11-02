@@ -43,6 +43,7 @@ dependencies:
   google_fonts: ^6.1.0
   provider: ^6.0.5
   shared_preferences: ^2.2.2
+  lite_rolling_switch: ^1.0.1
 
 dev_dependencies:
   flutter_test:

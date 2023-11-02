@@ -1,9 +1,11 @@
 import 'package:campus_connect/screen/authscreen.dart';
+import 'package:campus_connect/screen/selectuser.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class mainDrawer extends StatelessWidget {
-  const mainDrawer({super.key});
+  final String title;
+  const mainDrawer({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class mainDrawer extends StatelessWidget {
           height: (size.height * 0.3),
           child: Center(
             child: Text(
-              "Welcome Student",
+              "Welcome $title",
               style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -44,7 +46,7 @@ class mainDrawer extends StatelessWidget {
               ),
               TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(authScreen.routeName);
+                    Navigator.of(context).pushNamed(selectUserScreen.routeName);
                   },
                   child: ListTile(
                     leading: Icon(Icons.logout),

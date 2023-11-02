@@ -97,13 +97,15 @@ class _HomePageState extends State<HomePage> {
               icon: const Icon(Icons.notifications))
         ],
       ),
-      drawer: const mainDrawer(),
+      drawer: const mainDrawer(
+        title: "Student",
+      ),
       backgroundColor: Colors.white,
       body: FutureBuilder(
         future: _fetchAndSetBus(),
         builder: (context, snapshot) => (snapshot.connectionState ==
                 ConnectionState.waiting)
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : RefreshIndicator(
