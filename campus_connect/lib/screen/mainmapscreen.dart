@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:easy_search_bar/easy_search_bar.dart';
+import 'package:geolocator/geolocator.dart';
 
 class mainMapScreen extends StatefulWidget {
   const mainMapScreen({super.key});
@@ -80,12 +81,13 @@ class _mainMapScreenState extends State<mainMapScreen> {
         LatLng(22.818133597025575, 75.94409907661887),
         LatLng(22.818743017741053, 75.94391936862044)
       ],
-      color: Colors.grey,
+      color: Colors.pinkAccent,
       width: 4);
 
   final Set<Polyline> _lines = {};
 
   LatLng _lastMapPosition = _center;
+  LatLng _currpos = _center;
 
   MapType _currentMapType = MapType.normal;
   void _giveployline(String origin, String dest) async {
@@ -111,12 +113,18 @@ class _mainMapScreenState extends State<mainMapScreen> {
         markerId: MarkerId(_lastMapPosition.toString()),
         position: _lastMapPosition,
         infoWindow: const InfoWindow(
-          title: 'Really cool place',
-          snippet: 'Piyush Home',
+          title: 'Bus Stop',
         ),
         icon: BitmapDescriptor.defaultMarker,
       ));
     });
+  }
+
+  void _centerthemap() async {
+    await Geolocator.checkPermission();
+    await Geolocator.requestPermission();
+    Position curr = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
   }
 
   void _onCameraMove(CameraPosition position) {
@@ -126,6 +134,7 @@ class _mainMapScreenState extends State<mainMapScreen> {
   void _onMapCreated(GoogleMapController controller) async {
     _controller = controller;
     Provider.of<Buses>(context, listen: false).fetchBuses();
+
     // String value = await DefaultAssetBundle.of(context)
     //     .loadString('assets/map_style.json');
     // _controller.setMapStyle(value);
@@ -137,10 +146,10 @@ class _mainMapScreenState extends State<mainMapScreen> {
       home: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
+            icon: const Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          title: Text('Your Selected Bus Route'),
+          title: const Text('Your Selected Bus Route'),
           foregroundColor: Colors.black,
           backgroundColor: Colors.white,
         ),
@@ -155,6 +164,8 @@ class _mainMapScreenState extends State<mainMapScreen> {
               mapType: _currentMapType,
               polylines: _lines,
               markers: _markers,
+              myLocationEnabled: true,
+              myLocationButtonEnabled: true,
               onCameraMove: _onCameraMove,
             ),
             Padding(
@@ -211,11 +222,19 @@ class _mainMapScreenState extends State<mainMapScreen> {
                       child: const Icon(Icons.map, size: 36.0),
                     ),
                     SizedBox(height: 16.0),
+                    // FloatingActionButton(
+                    //   onPressed: _onAddMarkerButtonPressed,
+                    //   materialTapTargetSize: MaterialTapTargetSize.padded,
+                    //   backgroundColor: Colors.green,
+                    //   child: const Icon(Icons.add_location, size: 36.0),
+                    // ),
+                    // SizedBox(height: 16.0),
                     FloatingActionButton(
                       onPressed: _onAddMarkerButtonPressed,
                       materialTapTargetSize: MaterialTapTargetSize.padded,
                       backgroundColor: Colors.green,
-                      child: const Icon(Icons.add_location, size: 36.0),
+                      child: const Icon(Icons.location_searching_rounded,
+                          size: 36.0),
                     ),
                     SizedBox(height: 16.0),
                   ],
