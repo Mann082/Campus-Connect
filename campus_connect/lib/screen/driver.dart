@@ -1,213 +1,121 @@
-import 'package:campus_connect/screen/authscreen.dart';
+import 'package:campus_connect/providers/bus_data.dart';
+import 'package:campus_connect/widgets/buttom.dart';
+import 'package:campus_connect/widgets/mainDrawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:campus_connect/screen/login.dart';
+import 'package:provider/provider.dart';
 
 class driverHome extends StatefulWidget {
-  const driverHome({super.key});
   static const routeName = "/driverHome";
+  const driverHome({super.key});
 
   @override
   State<driverHome> createState() => _driverHomeState();
 }
 
 class _driverHomeState extends State<driverHome> {
+  var selectedBus = "Select Bus";
+  var _buses = ["Dummy"];
+
+  Future<void> _fetchAndSetBus() async {
+    await Provider.of<Buses>(context, listen: false).fetchBuses();
+    _buses = Provider.of<Buses>(context, listen: false).busList;
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var selectedBus = "Select Bus";
-    var _buses = [
-      "Bus 1",
-      "Bus 2",
-      "Bus 3",
-      "Bus 4",
-      "Bus 5",
-      "Bus 6",
-      "Bus 7",
-      "Bus 1",
-      "Bus 2",
-      "Bus 3",
-      "Bus 4",
-      "Bus 5",
-      "Bus 6",
-      "Bus 7",
-      "Bus 1",
-      "Bus 2",
-      "Bus 3",
-      "Bus 4",
-      "Bus 5",
-      "Bus 6",
-      "Bus 7",
-      "Bus 1",
-      "Bus 2",
-      "Bus 3",
-      "Bus 4",
-      "Bus 5",
-      "Bus 6",
-      "Bus 7"
-    ];
     return Scaffold(
       appBar: AppBar(
-        titleTextStyle: TextStyle(
-            color: Colors.amber, fontWeight: FontWeight.bold, fontSize: 30),
-        //foregroundColor: Colors.amber,
-        backgroundColor: Color.fromARGB(255, 159, 239, 255),
-        title: Text("Driver Screen"),
+        title: const Text(
+          'Select Bus',
+          textAlign: TextAlign.center,
+        ),
       ),
-      drawer: Drawer(
-          child: Container(
-        color: Theme.of(context).primaryColor,
-        child: Column(
-          children: [
-            SizedBox(height: MediaQuery.of(context).padding.top),
-            Container(
-              width: 300,
-              height: 100,
-              color: Color.fromARGB(195, 99, 255, 229),
-              child: Text(
-                "Hii Driver",
-                style: TextStyle(
-                  fontSize: 40,
-                ),
-                textAlign: TextAlign.left,
-              ),
-            ),
-            ElevatedButton(
-              child: Text("Logout"),
-              style: TextButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                  minimumSize: Size(150, 40)),
-              onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => authScreen(),
-                ));
-              },
-            ),
-          ],
-        ),
-      )),
-      body: Container(
-        padding: EdgeInsets.all(50),
-        child: Center(
-          child: Column(
-            children: [
-              Container(
-                height: 200,
-                width: MediaQuery.of(context).size.width * 0.9,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white),
-                child: Column(children: [
-                  SizedBox(height: 20),
-                  Center(
-                    child: Card(
-                      elevation: 7,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(33)),
-                      child: Container(
-                        height: size.height * 0.3,
-                        width: MediaQuery.of(context).size.width * 0.95,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Color.fromARGB(255, 11, 223, 156)),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: size.height * 0.03,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.white),
-                              child: DropdownMenu(
-                                  inputDecorationTheme: InputDecorationTheme(
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          borderSide: BorderSide(
-                                              width: 10, color: Colors.black))),
-                                  width: size.width * 0.85,
-                                  hintText: "Select Bus",
-                                  leadingIcon: Icon(CupertinoIcons.bus),
-                                  initialSelection: "Please Select",
-                                  menuStyle: MenuStyle(
-                                      backgroundColor: MaterialStatePropertyAll(
-                                          Colors.white),
-                                      shadowColor: MaterialStatePropertyAll(
-                                          Colors.white),
-                                      fixedSize: MaterialStatePropertyAll(Size(
-                                          size.width * 0.5, size.height * 0.5)),
-                                      shape: MaterialStatePropertyAll(
-                                          RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              side: BorderSide(
-                                                  color: Colors.grey,
-                                                  width: 2)))),
-                                  onSelected: (String? value) {
-                                    setState(() {
-                                      // print("presssed");
-                                      // selectedContact = value!;
-                                      // contacts = Provider.of<Groups>(context, listen: false)
-                                      //     .returnByName(value.toString());
-                                      selectedBus = value!;
-                                      print(value);
-                                    });
-                                  },
-                                  // width: double.maxFinite,
-                                  dropdownMenuEntries: _buses
-                                      .map((e) => DropdownMenuEntry(
-                                          value: e,
-                                          label: e,
-                                          leadingIcon: Icon(CupertinoIcons.bus),
-                                          style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.white))))
-                                      .toList()),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Text('Selected Bus : $selectedBus'),
-                          ],
-                        ),
-                      ),
+      drawer: mainDrawer(),
+      body: FutureBuilder(
+        future: _fetchAndSetBus(),
+        builder: (context, snapshot) => (snapshot.connectionState ==
+                ConnectionState.waiting)
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Center(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: size.height * 0.2,
                     ),
-                  ),
-                ]),
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text(
-                  "Start",
-                  style: TextStyle(
-                      color: Colors.amber,
-                      fontSize: 40,
-                      fontStyle: FontStyle.italic),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white),
+                      child: DropdownMenu(
+                          inputDecorationTheme: InputDecorationTheme(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: const BorderSide(
+                                      width: 10, color: Colors.black))),
+                          width: size.width * 0.85,
+                          hintText: selectedBus,
+                          leadingIcon: const Icon(CupertinoIcons.bus),
+                          initialSelection: "Please Select",
+                          menuStyle: MenuStyle(
+                              backgroundColor:
+                                  const MaterialStatePropertyAll(Colors.white),
+                              shadowColor:
+                                  const MaterialStatePropertyAll(Colors.white),
+                              maximumSize: MaterialStatePropertyAll(
+                                  Size.fromHeight(size.height * 0.5)),
+                              // fixedSize: MaterialStatePropertyAll(
+                              //     Size.fromWidth(size.width * 0.5)),
+                              shape: MaterialStatePropertyAll(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      side: const BorderSide(
+                                          color: Colors.grey, width: 2)))),
+                          onSelected: (String? value) {
+                            setState(() {
+                              // print("presssed");
+                              // selectedContact = value!;
+                              // contacts = Provider.of<Groups>(context, listen: false)
+                              //     .returnByName(value.toString());
+                              selectedBus = value!;
+                              print(value);
+                            });
+                          },
+                          // width: double.maxFinite,
+                          dropdownMenuEntries: _buses
+                              .map((e) => DropdownMenuEntry(
+                                  value: e,
+                                  label: e,
+                                  leadingIcon: const Icon(CupertinoIcons.bus),
+                                  style: const ButtonStyle(
+                                      backgroundColor: MaterialStatePropertyAll(
+                                          Colors.white))))
+                              .toList()),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text('Selected Bus : $selectedBus'),
+                    SizedBox(
+                      height: size.height * 0.1,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {},
+                        child: const Text(
+                          'Confirm',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                            fixedSize: Size.fromWidth(size.width * 0.85),
+                            backgroundColor: Color.fromARGB(255, 67, 205, 154),
+                            elevation: 10,
+                            foregroundColor: Colors.white))
+                  ],
                 ),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(120, 130),
-                  backgroundColor: Colors.red,
-                ),
               ),
-              SizedBox(
-                height: 30,
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text(
-                  "Stop",
-                  style: TextStyle(
-                      color: Colors.amber,
-                      fontSize: 40,
-                      fontStyle: FontStyle.italic),
-                ),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(120, 130),
-                  backgroundColor: Colors.green,
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

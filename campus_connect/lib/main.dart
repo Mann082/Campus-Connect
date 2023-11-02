@@ -5,6 +5,7 @@ import 'package:campus_connect/screen/authscreen.dart';
 import 'package:campus_connect/screen/driver.dart';
 import 'package:campus_connect/screen/homepage.dart';
 import 'package:campus_connect/screen/mainmapscreen.dart';
+import 'package:campus_connect/screen/selectuser.dart';
 import 'package:campus_connect/screen/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           routes: {
+            selectUserScreen.routeName: (context) => selectUserScreen(),
             authScreen.routeName: (context) => authScreen(),
             HomePage.routeName: (context) => HomePage(),
             NotificationScreen.routeName: (context) => NotificationScreen(),
@@ -46,7 +48,7 @@ class MyApp extends StatelessWidget {
             driverHome.routeName: (context) => driverHome(),
             SignUp.routeName: (context) => SignUp()
           },
-          initialRoute: authScreen.routeName),
+          initialRoute: selectUserScreen.routeName),
     );
   }
 }
