@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 class Buses with ChangeNotifier {
   List<String> busList = [];
+  LatLng? currLocation;
   var selectedBus;
 
   Future<void> fetchBuses() async {
@@ -23,6 +25,24 @@ class Buses with ChangeNotifier {
       notifyListeners();
     } catch (err) {
       print(err);
+    }
+  }
+
+  Future<Map<String, double>> getBusLocation() async {
+    final url = Uri.https(
+        "campusconnect-401818-default-rtdb.asia-southeast1.firebasedatabase.app",
+        '/live/$selectedBus.json');
+    try {
+      var response = await http.get(url);
+      var resData = jsonDecode(response.body);
+      Map<String, double> mp = {
+        'latitude': resData['latitude'].toDouble(),
+        'longitude': resData['longitude'].toDouble()
+      };
+      return mp;
+    } catch (err) {
+      print(err);
+      return {}; // Return an empty map or handle the error as needed
     }
   }
 

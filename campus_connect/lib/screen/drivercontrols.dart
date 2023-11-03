@@ -45,12 +45,10 @@ class _driverControlsScreenState extends State<driverControlsScreen> {
         "campusconnect-401818-default-rtdb.asia-southeast1.firebasedatabase.app",
         '/live/$selectedbus.json');
     var requestData = {
-      selectedbus.toString(): {
-        "latitude": _currentPosition.latitude,
-        "longitude": _currentPosition.longitude
-      }
+      "latitude": _currentPosition.latitude,
+      "longitude": _currentPosition.longitude
     };
-    var response = await http.post(url, body: jsonEncode(requestData));
+    var response = await http.patch(url, body: jsonEncode(requestData));
 
     print(
         'Latitude: ${_currentPosition.latitude}, Longitude: ${_currentPosition.longitude}');

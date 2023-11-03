@@ -107,6 +107,8 @@ class _driverHomeState extends State<driverHome> {
                     ),
                     ElevatedButton(
                         onPressed: () {
+                          Provider.of<Buses>(context, listen: false)
+                              .setBus(selectedBus);
                           Navigator.of(context)
                               .pushNamed(driverControlsScreen.routeName);
                         },

@@ -45,6 +45,15 @@ class mainDrawer extends StatelessWidget {
                 height: 1,
               ),
               TextButton(
+                  onPressed: () {},
+                  child: ListTile(
+                    leading: Icon(Icons.feedback_outlined),
+                    title: Text("Feedback"),
+                  )),
+              Divider(
+                height: 1,
+              ),
+              TextButton(
                   onPressed: () {
                     Navigator.of(context).pushNamed(selectUserScreen.routeName);
                   },

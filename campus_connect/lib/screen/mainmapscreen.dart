@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:campus_connect/providers/bus_data.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -14,11 +16,38 @@ class mainMapScreen extends StatefulWidget {
 
 class _mainMapScreenState extends State<mainMapScreen> {
   late GoogleMapController _controller;
+  Timer? _locationTimer;
 
   static const LatLng _center = const LatLng(22.752077, 75.894703);
 
   final Set<Marker> _markers = {};
   bool check = false;
+
+  void startGettingLocation() {
+    _locationTimer = Timer.periodic(Duration(seconds: 10), (timer) async {
+      try {
+        var temp =
+            await Provider.of<Buses>(context, listen: false).getBusLocation();
+        var loc = await Provider.of<Buses>(context, listen: false).currLocation;
+        print(temp);
+        // print(loc.longitude);
+        LatLng currLocation = LatLng(temp['latitude']!, temp['longitude']!);
+        setState(() {
+          _markers.add(Marker(
+              markerId: const MarkerId("Live"),
+              position: currLocation,
+              icon: BitmapDescriptor.defaultMarker,
+              infoWindow: InfoWindow(title: "G-37")));
+        });
+      } catch (err) {
+        print(err);
+      }
+    });
+  }
+
+  void stopGettingLocation() {
+    _locationTimer?.cancel();
+  }
 
   @override
   void didChangeDependencies() {
@@ -58,11 +87,17 @@ class _mainMapScreenState extends State<mainMapScreen> {
       } else {
         _lines.add(line2);
       }
+      startGettingLocation();
       check = true;
     }
     super.didChangeDependencies();
   }
 
+  @override
+  void dispose() {
+    stopGettingLocation();
+    super.dispose();
+  }
 //notification before of arrival of bus
 // notification of arrival of stop of user
 // dynamic routing
