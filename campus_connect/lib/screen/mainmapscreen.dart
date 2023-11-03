@@ -30,6 +30,8 @@ class _mainMapScreenState extends State<mainMapScreen> {
             await Provider.of<Buses>(context, listen: false).getBusLocation();
         var loc = await Provider.of<Buses>(context, listen: false).currLocation;
         print(temp);
+        var selectedBus =
+            Provider.of<Buses>(context, listen: false).selectedBus;
         // print(loc.longitude);
         LatLng currLocation = LatLng(temp['latitude']!, temp['longitude']!);
         setState(() {
@@ -37,7 +39,7 @@ class _mainMapScreenState extends State<mainMapScreen> {
               markerId: const MarkerId("Live"),
               position: currLocation,
               icon: BitmapDescriptor.defaultMarker,
-              infoWindow: InfoWindow(title: "G-37")));
+              infoWindow: InfoWindow(title: selectedBus)));
         });
       } catch (err) {
         print(err);
