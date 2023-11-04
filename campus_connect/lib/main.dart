@@ -9,6 +9,7 @@ import 'package:campus_connect/screen/homepage.dart';
 import 'package:campus_connect/screen/mainmapscreen.dart';
 import 'package:campus_connect/screen/selectuser.dart';
 import 'package:campus_connect/screen/signup.dart';
+import 'package:campus_connect/splashscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -53,9 +54,10 @@ class MyApp extends StatelessWidget {
             SignUp.routeName: (context) => const SignUp(),
             driverControlsScreen.routeName: (context) =>
                 const driverControlsScreen(),
-            adminScreen.routeName: (context) => const adminScreen()
+            adminScreen.routeName: (context) => const adminScreen(),
+            SplashScreen.routename: (context) => SplashScreen()
           },
-          initialRoute: selectUserScreen.routeName),
+          initialRoute: SplashScreen.routename),
     );
   }
 }
