@@ -21,7 +21,7 @@ class _driverControlsScreenState extends State<driverControlsScreen> {
   Timer? _locationTimer;
 
   void _startTimer() {
-    _locationTimer = Timer.periodic(Duration(seconds: 10), (timer) {
+    _locationTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (_pushLocation) {
         _getCurrentLocation();
       }

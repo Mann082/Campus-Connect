@@ -52,7 +52,7 @@ class _mainMapScreenState extends State<mainMapScreen> {
   bool check = false;
 
   void startGettingLocation() {
-    _locationTimer = Timer.periodic(Duration(seconds: 10), (timer) async {
+    _locationTimer = Timer.periodic(Duration(seconds: 1), (timer) async {
       try {
         var temp =
             await Provider.of<Buses>(context, listen: false).getBusLocation();
