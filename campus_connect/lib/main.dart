@@ -1,6 +1,7 @@
 import 'package:campus_connect/providers/auth.dart';
 import 'package:campus_connect/providers/bus_data.dart';
 import 'package:campus_connect/screen/Notification_Screen.dart';
+import 'package:campus_connect/screen/adminScreen.dart';
 import 'package:campus_connect/screen/authscreen.dart';
 import 'package:campus_connect/screen/driver.dart';
 import 'package:campus_connect/screen/drivercontrols.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
           title: 'Campus Connect',
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
                 seedColor: const Color.fromARGB(255, 67, 205, 154)),
@@ -50,7 +52,8 @@ class MyApp extends StatelessWidget {
             driverHome.routeName: (context) => const driverHome(),
             SignUp.routeName: (context) => const SignUp(),
             driverControlsScreen.routeName: (context) =>
-                const driverControlsScreen()
+                const driverControlsScreen(),
+            adminScreen.routeName: (context) => const adminScreen()
           },
           initialRoute: selectUserScreen.routeName),
     );

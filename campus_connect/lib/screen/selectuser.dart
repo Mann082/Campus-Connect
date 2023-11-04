@@ -1,3 +1,4 @@
+import 'package:campus_connect/screen/adminScreen.dart';
 import 'package:campus_connect/screen/authscreen.dart';
 import 'package:campus_connect/screen/driver.dart';
 import 'package:campus_connect/screen/homepage.dart';
@@ -77,14 +78,19 @@ class selectUserScreen extends StatelessWidget {
               ),
               Column(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Container(
-                      width: 150,
-                      height: 150,
-                      color: Color.fromARGB(255, 67, 205, 154),
-                      child:
-                          Image.asset('assets/admin.png', fit: BoxFit.contain),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(adminScreen.routeName);
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Container(
+                        width: 150,
+                        height: 150,
+                        color: Color.fromARGB(255, 67, 205, 154),
+                        child: Image.asset('assets/admin.png',
+                            fit: BoxFit.contain),
+                      ),
                     ),
                   ),
                   const Text(

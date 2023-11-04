@@ -17,6 +17,34 @@ class mainMapScreen extends StatefulWidget {
 class _mainMapScreenState extends State<mainMapScreen> {
   late GoogleMapController _controller;
   Timer? _locationTimer;
+  BitmapDescriptor busIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor stopIcon = BitmapDescriptor.defaultMarker;
+  @override
+  void initState() {
+    addCustomIcon();
+    super.initState();
+  }
+
+  void addCustomIcon() {
+    BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(), "assets/busicon.png")
+        .then(
+      (icon) {
+        setState(() {
+          busIcon = icon;
+        });
+      },
+    );
+    BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(), "assets/busStop.png")
+        .then(
+      (icon) {
+        setState(() {
+          stopIcon = icon;
+        });
+      },
+    );
+  }
 
   static const LatLng _center = const LatLng(22.752077, 75.894703);
 
@@ -38,7 +66,7 @@ class _mainMapScreenState extends State<mainMapScreen> {
           _markers.add(Marker(
               markerId: const MarkerId("Live"),
               position: currLocation,
-              icon: BitmapDescriptor.defaultMarker,
+              icon: busIcon,
               infoWindow: InfoWindow(title: selectedBus)));
         });
       } catch (err) {
@@ -60,18 +88,18 @@ class _mainMapScreenState extends State<mainMapScreen> {
       if (selectedBus == "G-1") {
         _lines.add(line);
         _markers.add(
-          const Marker(
+          Marker(
               markerId: MarkerId("Radisson"),
               position: LatLng(22.749425558125466, 75.90337181688544),
               infoWindow: InfoWindow(title: "Radisson"),
-              icon: BitmapDescriptor.defaultMarker),
+              icon: stopIcon),
         );
         _markers.add(
-          const Marker(
+          Marker(
               markerId: MarkerId("VijayNagar"),
               position: LatLng(22.751399346060058, 75.89455224365582),
               infoWindow: InfoWindow(title: "VijayNagar"),
-              icon: BitmapDescriptor.defaultMarker),
+              icon: stopIcon),
         );
       } else if (selectedBus == "G-2") {
         _lines.add(line2);
@@ -82,7 +110,7 @@ class _mainMapScreenState extends State<mainMapScreen> {
               ),
               position: stopsLatLng[i]['location'],
               infoWindow: InfoWindow(title: stopsLatLng[i]['name'].toString()),
-              icon: BitmapDescriptor.defaultMarker));
+              icon: stopIcon));
         }
       } else if (selectedBus == "G-3") {
         _lines.add(line);
@@ -304,7 +332,7 @@ class _mainMapScreenState extends State<mainMapScreen> {
         infoWindow: const InfoWindow(
           title: 'Bus Stop',
         ),
-        icon: BitmapDescriptor.defaultMarker,
+        icon: busIcon,
       ));
     });
   }
@@ -418,14 +446,14 @@ class _mainMapScreenState extends State<mainMapScreen> {
                     //   child: const Icon(Icons.add_location, size: 36.0),
                     // ),
                     // SizedBox(height: 16.0),
-                    FloatingActionButton(
-                      onPressed: _onAddMarkerButtonPressed,
-                      materialTapTargetSize: MaterialTapTargetSize.padded,
-                      backgroundColor: Colors.green,
-                      child: const Icon(Icons.location_searching_rounded,
-                          size: 36.0),
-                    ),
-                    const SizedBox(height: 16.0),
+                    // FloatingActionButton(
+                    //   onPressed: _onAddMarkerButtonPressed,
+                    //   materialTapTargetSize: MaterialTapTargetSize.padded,
+                    //   backgroundColor: Colors.green,
+                    //   child: const Icon(Icons.location_searching_rounded,
+                    //       size: 36.0),
+                    // ),
+                    // const SizedBox(height: 16.0),
                   ],
                 ),
               ),

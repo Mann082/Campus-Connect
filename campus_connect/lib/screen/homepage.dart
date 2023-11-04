@@ -247,17 +247,17 @@ class _HomePageState extends State<HomePage> {
                                             child: const Icon(Icons.map,
                                                 size: 36.0),
                                           ),
-                                          const SizedBox(height: 16.0),
-                                          FloatingActionButton(
-                                            onPressed:
-                                                _onAddMarkerButtonPressed,
-                                            materialTapTargetSize:
-                                                MaterialTapTargetSize.padded,
-                                            backgroundColor: Colors.green,
-                                            child: const Icon(
-                                                Icons.add_location,
-                                                size: 36.0),
-                                          ),
+                                          // const SizedBox(height: 16.0),
+                                          // FloatingActionButton(
+                                          //   onPressed:
+                                          //       _onAddMarkerButtonPressed,
+                                          //   materialTapTargetSize:
+                                          //       MaterialTapTargetSize.padded,
+                                          //   backgroundColor: Colors.green,
+                                          //   child: const Icon(
+                                          //       Icons.add_location,
+                                          //       size: 36.0),
+                                          // ),
                                         ],
                                       ),
                                     ),
