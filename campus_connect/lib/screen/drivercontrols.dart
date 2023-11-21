@@ -20,8 +20,10 @@ class _driverControlsScreenState extends State<driverControlsScreen> {
   var _pushLocation = false;
   Timer? _locationTimer;
 
-  void _startTimer() {
-    _locationTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+  void _startTimer() async {
+    await Geolocator.checkPermission();
+    await Geolocator.requestPermission();
+    _locationTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_pushLocation) {
         _getCurrentLocation();
       }

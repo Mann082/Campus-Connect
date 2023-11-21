@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
             SignUp.routeName: (context) => const SignUp(),
             driverControlsScreen.routeName: (context) =>
                 const driverControlsScreen(),
-            adminScreen.routeName: (context) => const adminScreen(),
+            adminScreen.routeName: (context) => adminScreen(),
             SplashScreen.routename: (context) => SplashScreen()
           },
           initialRoute: SplashScreen.routename),
